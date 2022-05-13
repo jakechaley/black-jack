@@ -7,6 +7,6 @@ function shuffleDeck(deck) {
     deck[i] = deck[j];
     deck[j] = temp;
   }
-}
+};
 
 export default shuffleDeck;
