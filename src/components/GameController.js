@@ -21,6 +21,27 @@ class GameController extends React.Component {
     };
   }
 
+  getDeck() {
+    const suits = ["spades", "diamonds", "clubs", "hearts"];
+    const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    const deck = []
+    for(let i = 0; i < suits.length; i++) {
+      for(let x = 0; x <values.length; x++) {
+        let card = {Value: values[x], Suit: suits[i]};
+        deck.push(card);
+      }
+    }
+    return deck;
+  }
+  
+  getRandomCard(deck) {
+    const updatedDeck = deck;
+    const randomIndex = Math.floor(Math.random() * updatedDeck.length);
+    const randomCard = updatedDeck[randomIndex];
+    updatedDeck.splice(randomIndex, 1); 
+    return { randomCard, updatedDeck };
+  }
+
   hitPlayer = () => {
     //todo: Get a random card from deck and put in player's hand//
     console.log("dealing card to player")

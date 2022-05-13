@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DealerHandScore from "./DealerHandScore";
 
 function DealerHandDisplay(props) {
   return (
