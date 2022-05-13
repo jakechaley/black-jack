@@ -42,6 +42,18 @@ class GameController extends React.Component {
     return { randomCard, updatedDeck };
   }
 
+  getCount(cards) {
+    const rearranged = [];
+    cards.forEach(card => {
+      if (card.number === 'A') {
+        rearranged.push(card);
+      } else if (card.number) {
+        rearranged.unshift(card);
+      }
+    });
+
+    //GetCount func not finished//
+
   hitPlayer = () => {
     //todo: Get a random card from deck and put in player's hand//
     console.log("dealing card to player")
