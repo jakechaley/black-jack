@@ -4,6 +4,7 @@ function Header() {
   return (
     <React.Fragment>
       <h1>Welcome To Black Jack! Feeling Lucky?</h1>
+      <hr/>
     </React.Fragment>
   );
 }

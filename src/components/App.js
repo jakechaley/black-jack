@@ -1,5 +1,5 @@
 import React from "react";
-import { GameController } from "./GameController";
+import GameController from "./GameController";
 import Header from "./Header";
 
 function App() {
