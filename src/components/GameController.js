@@ -1,4 +1,9 @@
 import React from "react";
+import DealerHandDisplay from "./DealerHandDisplay";
+import DealerHandScore from "./DealerHandScore";
+import PlayerHandDisplay from "./PlayerHandDisplay";
+import PlayerHandScore from "./PlayerHandScore";
+import GameButtons from "./GameButtons";
 
 class GameController extends React.Component {
   constructor(props) {
@@ -43,15 +48,15 @@ class GameController extends React.Component {
   render() {
     return (
       <>
-        <DealerHandDisplay/>
-        <PlayerHandDisplay/>
-        <GameControlsDisplay 
+        <DealerHandDisplay dealerHand={this.state.dealerHand}/>
+        <PlayerHandDisplay playerHand={this.state.playerHand}/>
+        <GameButtons 
           onHitButtonClicked={this.hitPlayer}
           onStayButtonClicked={this.endPlayerTurn}
           onDealButtonClicked={this.dealHands}
           />
         <DealerHandScore dealerScore={this.state.dealerScore}/>
-        <PlayerHandScore/>
+        <PlayerHandScore playerScore={this.state.playerScore}/>
       </>
     );
   }
@@ -61,37 +66,9 @@ class GameController extends React.Component {
 
 export default GameController;
 
-function DealerHandDisplay() {
-  return (
-    <p>Dealer Hander Goes Here</p>
-  )
-}
 
-function PlayerHandDisplay() {
-  return (
-    <p>Player Hander Goes Here</p>
-  )
-}
 
-function GameControlsDisplay(props) {
-  return (
-    <>
-      <button onClick={props.onDealButtonClicked}>Deal</button>
-      <button onClick={props.onHitButtonClicked}>Hit</button>
-      <button onClick={props.onStayButtonClicked}>Stay</button>
-    </>
-  )
-}
 
-function DealerHandScore(props) {
-  return (
-    <p>Dealer's Score is: {props.dealerScore}</p>
-  )
-}
 
-function PlayerHandScore() {
-  return (
-    <p>Player's Score Goes Here</p>
-  )
-}
+
 
