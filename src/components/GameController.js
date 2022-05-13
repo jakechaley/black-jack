@@ -16,16 +16,40 @@ class GameController extends React.Component {
     };
   }
 
-  dealCardToPlayer = () => {
+  hitPlayer = () => {
     //todo: Get a random card from deck and put in player's hand//
     console.log("dealing card to player")
+  }
+
+  endPlayerTurn = () => {
+    //todo: Stop the hand being played//
+    console.log("End The play's turn")
+  }
+
+  // dealHandToPlayer = () => {
+  //   //todo: Get 2 random cards from deck and put into players hand//
+  //   console.log("Dealing two cards to player")
+  // }
+
+  // dealHandToDealer = () => {
+  //   //todo: Get 2 random cards from deck and put them in dealers hand//
+  //   console.log("Dealing two cards to dealer")
+  // }
+
+  dealHands = () => {
+    //todo: Get 4 random cards from the deack. Put 2 in players hand and 2 in dealers hand//
+    console.log("Dealing out hands to player and dealer")
   }
   render() {
     return (
       <>
         <DealerHandDisplay/>
         <PlayerHandDisplay/>
-        <GameControlsDisplay onHitButtonClicked={this.dealCardToPlayer} />
+        <GameControlsDisplay 
+          onHitButtonClicked={this.hitPlayer}
+          onStayButtonClicked={this.endPlayerTurn}
+          onDealButtonClicked={this.dealHands}
+          />
         <DealerHandScore dealerScore={this.state.dealerScore}/>
         <PlayerHandScore/>
       </>
@@ -52,9 +76,9 @@ function PlayerHandDisplay() {
 function GameControlsDisplay(props) {
   return (
     <>
-      <button>Deal</button>
+      <button onClick={props.onDealButtonClicked}>Deal</button>
       <button onClick={props.onHitButtonClicked}>Hit</button>
-      <button>Stay</button>
+      <button onClick={props.onStayButtonClicked}>Stay</button>
     </>
   )
 }
@@ -70,3 +94,4 @@ function PlayerHandScore() {
     <p>Player's Score Goes Here</p>
   )
 }
+
