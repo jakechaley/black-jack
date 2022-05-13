@@ -1,4 +1,4 @@
-import getDeck from "./DeckOfCards";
+import getDeck from "./getDeck";
 
 function shuffleDeck(deck) {
   for (let i = deck.length - 1; i > 0; i--) {
