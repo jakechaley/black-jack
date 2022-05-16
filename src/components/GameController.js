@@ -13,7 +13,10 @@ class GameController extends React.Component {
       player: null,
       dealer: null,
       message: null,
-      gameOver: false
+      gameOver: false,
+      wallet: 0,
+      inputValue: " ",
+      currentBet: null
     };
   }
 
@@ -87,6 +90,42 @@ class GameController extends React.Component {
 
     return {updatedDeck: playerCard2.updatedDeck, player, dealer};
   }
+
+  startNewGame(type) {
+    if (type === "continue") {
+      if(this.state.wallet > 0) {
+        const deck = (this.state.deck.length < 10) ? this.getDeck() : this.state.deck;
+        const { updatedDeck, player, dealer } = this.dealHands(deck);
+        this.setState({
+          deck: updatedDeck,
+          dealer,
+          player,
+          currentBet: null,
+          gameOver: false,
+          message: null
+        });
+      } else {
+        this.setState({message: "Game over! No more money:/ Start a new game!"});
+      }
+    } else {
+      const deck = this.getDeck();
+      const { updatedDeck, player, dealer } = this.dealHands(deck);
+    }
+  }
+
+  placeBet() {
+    const currentBet = this.state.inputValue;
+
+    if(currentBet > this.state.wallet) {
+      this.setState({message: "Insufficient funds to place this bet amount."});
+    } else if (currentBet % 1 !== 0) {
+      this.setState({message: "Please bet whole numbers only."});
+    } else {
+      const wallet = this.state.wallet - currentBet;
+      this.setState({wallet, inputValue: " ", currentBet});
+    }
+  }
+
   render() {
     return (
       <>
@@ -95,7 +134,7 @@ class GameController extends React.Component {
         <GameButtons 
           onHitButtonClicked={this.hitPlayer}
           onStayButtonClicked={this.endPlayerTurn}
-          onDealButtonClicked={this.dealHands}
+          onDealButtonClicked={this.startNewGame}
           />
         <DealerHandScore dealerScore={this.state.dealerScore}/>
         <PlayerHandScore playerScore={this.state.playerScore}/>
