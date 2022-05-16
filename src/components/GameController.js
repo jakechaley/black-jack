@@ -52,7 +52,16 @@ class GameController extends React.Component {
       }
     });
 
-    //GetCount func not finished//
+    return rearranged.reduce((total, card) => {
+      if (card.number === "J" || card.number === "Q" || card.number === "K") {
+        return total + 10;
+      } else if (card.number === "A") {
+        return (total + 11 <= 21) ? total + 11 : total + 1;
+      } else {
+        return total + card.number;
+      }
+    }, 0);
+  }
 
   hitPlayer = () => {
     //todo: Get a random card from deck and put in player's hand//
