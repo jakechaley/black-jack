@@ -10,14 +10,10 @@ class GameController extends React.Component {
     super(props);
     this.state = {
       deck: [],
-      playerHand: [],
-      dealerHand: [],
-      playerScore: 0,
-      dealerScore: 0,
-      playerWin: false,
-      dealerWin: false,
-      hit: false,
-      finish: false
+      player: null,
+      dealer: null,
+      message: null,
+      gameOver: false
     };
   }
 
@@ -73,19 +69,23 @@ class GameController extends React.Component {
     console.log("End The play's turn")
   }
 
-  // dealHandToPlayer = () => {
-  //   //todo: Get 2 random cards from deck and put into players hand//
-  //   console.log("Dealing two cards to player")
-  // }
+  dealHands(deck){
+    const playerCard1 = this.getRandomCard(deck);
+    const dealerCard1 = this.getRandomCard(playerCard1.updatedDeck);
+    const playerCard2 = this.getRandomCard(dealerCard1.updatedDeck);
+    const playerStartingHand = [playerCard1.randomCard, playerCard2.randomCard];
+    const dealerStartingHand = [dealerCard1.randomCard, {}];
+    const player = {
+      cards: playerStartingHand,
+      count: this.getCount(playerStartingHand)
+    };
+    const dealer = {
+      cards: dealerStartingHand,
+      count: this.getCount(dealerStartingHand)
+    };
+    console.log(playerStartingHand, dealerStartingHand)
 
-  // dealHandToDealer = () => {
-  //   //todo: Get 2 random cards from deck and put them in dealers hand//
-  //   console.log("Dealing two cards to dealer")
-  // }
-
-  dealHands = () => {
-    //todo: Get 4 random cards from the deack. Put 2 in players hand and 2 in dealers hand//
-    console.log("Dealing out hands to player and dealer")
+    return {updatedDeck: playerCard2.updatedDeck, player, dealer};
   }
   render() {
     return (
