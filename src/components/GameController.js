@@ -10,8 +10,8 @@ class GameController extends React.Component {
     super(props);
     this.state = {
       deck: [],
-      player: null,
-      dealer: null,
+      player: {cards: [], count: 0},
+      dealer: {cards: [], count: 0},
       message: null,
       gameOver: false,
       wallet: 0,
@@ -26,7 +26,7 @@ class GameController extends React.Component {
     const deck = []
     for(let i = 0; i < suits.length; i++) {
       for(let x = 0; x <values.length; x++) {
-        let card = {Value: values[x], Suit: suits[i]};
+        let card = {value: values[x], suit: suits[i]};
         deck.push(card);
       }
     }
@@ -44,20 +44,20 @@ class GameController extends React.Component {
   getCount(cards) {
     const rearranged = [];
     cards.forEach(card => {
-      if (card.number === 'A') {
+      if (card.value === 'A') {
         rearranged.push(card);
-      } else if (card.number) {
+      } else if (card.value) {
         rearranged.unshift(card);
       }
     });
 
     return rearranged.reduce((total, card) => {
-      if (card.number === "J" || card.number === "Q" || card.number === "K") {
+      if (card.value === "J" || card.value === "Q" || card.value === "K") {
         return total + 10;
-      } else if (card.number === "A") {
+      } else if (card.value === "A") {
         return (total + 11 <= 21) ? total + 11 : total + 1;
       } else {
-        return total + card.number;
+        return total + parseInt(card.value);
       }
     }, 0);
   }
@@ -72,26 +72,25 @@ class GameController extends React.Component {
     console.log("End The play's turn")
   }
 
-  dealHands(deck){
+  dealHands = (deck)=>{
     const playerCard1 = this.getRandomCard(deck);
     const dealerCard1 = this.getRandomCard(playerCard1.updatedDeck);
     const playerCard2 = this.getRandomCard(dealerCard1.updatedDeck);
-    const playerStartingHand = [playerCard1.randomCard, playerCard2.randomCard];
-    const dealerStartingHand = [dealerCard1.randomCard, {}];
+    const dealerCard2 = this.getRandomCard(playerCard2.updatedDeck);
+    const playerStartingHand = [{...playerCard1.randomCard, isFaceUp: true}, {...playerCard2.randomCard, isFaceUp: true}];
+    const dealerStartingHand = [{...dealerCard1.randomCard, isFaceUp: true}, {...dealerCard2.randomCard, isFaceUp: false}];
     const player = {
-      cards: playerStartingHand,
-      count: this.getCount(playerStartingHand)
+      cards: playerStartingHand
     };
     const dealer = {
-      cards: dealerStartingHand,
-      count: this.getCount(dealerStartingHand)
+      cards: dealerStartingHand
     };
-    console.log(playerStartingHand, dealerStartingHand)
+    console.log(player, dealer)
 
     return {updatedDeck: playerCard2.updatedDeck, player, dealer};
   }
 
-  startNewGame(type) {
+  startNewGame = (type) => {
     if (type === "continue") {
       if(this.state.wallet > 0) {
         const deck = (this.state.deck.length < 10) ? this.getDeck() : this.state.deck;
@@ -110,6 +109,17 @@ class GameController extends React.Component {
     } else {
       const deck = this.getDeck();
       const { updatedDeck, player, dealer } = this.dealHands(deck);
+
+      this.setState({
+        deck: updatedDeck,
+        dealer,
+        player,
+        wallet: 100,
+        inputValue: '',
+        currentBet: null,
+        gameOver: false,
+        message: null
+      });
     }
   }
 
@@ -126,18 +136,18 @@ class GameController extends React.Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <>
-        <DealerHandDisplay dealerHand={this.state.dealerHand}/>
-        <PlayerHandDisplay playerHand={this.state.playerHand}/>
+        <DealerHandDisplay dealerHand={this.state.dealer.cards}/>
+        <PlayerHandDisplay playerHand={this.state.player.cards}/>
         <GameButtons 
           onHitButtonClicked={this.hitPlayer}
           onStayButtonClicked={this.endPlayerTurn}
           onDealButtonClicked={this.startNewGame}
           />
-        <DealerHandScore dealerScore={this.state.dealerScore}/>
-        <PlayerHandScore playerScore={this.state.playerScore}/>
+        <DealerHandScore dealerScore={this.getCount(this.state.dealer.cards)}/>
+        <PlayerHandScore playerScore={this.getCount(this.state.player.cards)}/>
       </>
     );
   }
@@ -146,10 +156,3 @@ class GameController extends React.Component {
 
 
 export default GameController;
-
-
-
-
-
-
-
