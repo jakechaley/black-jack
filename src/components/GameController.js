@@ -33,14 +33,15 @@ class GameController extends React.Component {
     return deck;
   }
   
-  getRandomCard(deck) {
-    const updatedDeck = deck;
+  getRandomCard = (deck) => {
+    const updatedDeck = [deck];
     const randomIndex = Math.floor(Math.random() * updatedDeck.length);
     const randomCard = updatedDeck[randomIndex];
     updatedDeck.splice(randomIndex, 1); 
     return { randomCard, updatedDeck };
   }
 
+  
   getCount(cards) {
     const rearranged = [];
     cards.forEach(card => {
@@ -62,17 +63,22 @@ class GameController extends React.Component {
     }, 0);
   }
 
-  hitPlayer = () => {
-    if (!this.state.gameOver){
-
-    }
-    console.log("hit button clicked")
-  }
+  // hitPlayer = (deck) => {
+  //   if (!this.state.gameOver){
+  //     const playerHitCard = this.getRandomCard(deck)
+      
+  //   }
+  //   console.log(deck)
+  // }
 
   endPlayerTurn = () => {
     //todo: Stop the hand being played//
     console.log("End The play's turn")
   }
+
+  // findWinner = () => {
+  //   console.log(this.getCount(this.state.dealer.cards))
+  // }
 
   dealHands = (deck)=>{
     const playerCard1 = this.getRandomCard(deck);
@@ -148,8 +154,8 @@ class GameController extends React.Component {
         <PlayerHandDisplay playerHand={this.state.player.cards}/>
         <PlayerHandScore playerScore={this.getCount(this.state.player.cards)}/>
         <GameButtons 
-          onHitButtonClicked={this.hitPlayer}
-          onStayButtonClicked={this.endPlayerTurn}
+          onHitButtonClicked={this.getRandomCard}
+          onStayButtonClicked={this.findWinner}
           onDealButtonClicked={this.startNewGame}
           />
       </>
