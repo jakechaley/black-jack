@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./DealerHandDisplay.css";
 
 function DealerHandDisplay(props) {
   return (
     <>
-    <div>Dealer's Hand is: {props.dealerHand.map((card, index) => card.isFaceUp && <p key={index}>{card.value} of {card.suit}</p>)}</div>
+    <div className="dealer-hand-display">Dealer's Hand is: {props.dealerHand.map((card, index) => card.isFaceUp && <p key={index}>{card.value} of {card.suit}</p>)}</div>
     </>
     
   )

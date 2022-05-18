@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./PlayerHandScore.css"
 
 function PlayerHandScore(props) {
   return (
-    <p>Player's Score is: {props.playerScore}</p>
+    <p className="player-hand-score">Player's Score is: {props.playerScore}</p>
   )
 }
 
