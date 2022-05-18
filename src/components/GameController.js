@@ -76,9 +76,19 @@ class GameController extends React.Component {
     console.log("End The play's turn")
   }
 
-  // findWinner = () => {
-  //   console.log(this.getCount(this.state.dealer.cards))
-  // }
+  findWinner = () => {
+    const dealerScore = this.getCount(this.state.dealer.cards)
+    const playerScore = this.getCount(this.state.player.cards)
+
+    if(dealerScore > playerScore) {
+      console.log("Dealer wins! Try again!")
+    } else if(playerScore > dealerScore) {
+      console.log("You win!!")
+    } else {
+      console.log("Push. You both have the same score.")
+    }
+    
+  }
 
   dealHands = (deck)=>{
     const playerCard1 = this.getRandomCard(deck);
