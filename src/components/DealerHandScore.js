@@ -4,7 +4,7 @@ import "./DealerHandScore.css"
 
 function DealerHandScore(props) {
   return (
-    <p className="dealer-hand-score">Dealer's Score is: {props.dealerScore}</p>
+    <h2 className="dealer-hand-score">Dealer's Score: {props.dealerScore}</h2>
   )
 }
 

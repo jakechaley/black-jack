@@ -5,7 +5,7 @@ import "./DealerHandDisplay.css";
 function DealerHandDisplay(props) {
   return (
     <>
-    <div className="dealer-hand-display">Dealer's Hand is: {props.dealerHand.map((card, index) => card.isFaceUp && <p key={index}>{card.value} of {card.suit}</p>)}</div>
+    <h2 className="dealer-hand-display">Dealer's Hand: {props.dealerHand.map((card, index) => card.isFaceUp && <p key={index}>{card.value} of {card.suit}</p>)}</h2>
     </>
     
   )

@@ -64,7 +64,7 @@ class GameController extends React.Component {
 
   hitPlayer = () => {
     if (!this.state.gameOver){
-      
+
     }
     console.log("hit button clicked")
   }
@@ -144,14 +144,14 @@ class GameController extends React.Component {
     return (
       <>
         <DealerHandDisplay dealerHand={this.state.dealer.cards}/>
+        <DealerHandScore dealerScore={this.getCount(this.state.dealer.cards)}/>
         <PlayerHandDisplay playerHand={this.state.player.cards}/>
+        <PlayerHandScore playerScore={this.getCount(this.state.player.cards)}/>
         <GameButtons 
           onHitButtonClicked={this.hitPlayer}
           onStayButtonClicked={this.endPlayerTurn}
           onDealButtonClicked={this.startNewGame}
           />
-        <DealerHandScore dealerScore={this.getCount(this.state.dealer.cards)}/>
-        <PlayerHandScore playerScore={this.getCount(this.state.player.cards)}/>
       </>
     );
   }

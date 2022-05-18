@@ -6,7 +6,7 @@ function GameButtons(props) {
   return (
     <>
     <div className="game-buttons">
-      <button className="deal-button" onClick={props.onDealButtonClicked}>Deal</button>
+      <button className=" btn btn-primary" onClick={props.onDealButtonClicked}>Deal</button>
       <button className="hit-button" onClick={props.onHitButtonClicked}>Hit</button>
       <button className="stay-button" onClick={props.onStayButtonClicked}>Stay</button>
     </div>

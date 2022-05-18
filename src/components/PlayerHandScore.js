@@ -4,7 +4,7 @@ import "./PlayerHandScore.css"
 
 function PlayerHandScore(props) {
   return (
-    <p className="player-hand-score">Player's Score is: {props.playerScore}</p>
+    <h2 className="player-hand-score">Player's Score: {props.playerScore}</h2>
   )
 }
 
