@@ -62,9 +62,27 @@ class GameController extends React.Component {
     }, 0);
   }
 
-  hitPlayer = () => {
-    //todo: Get a random card from deck and put in player's hand//
+  hitPlayer = (updatedDeck) => {
+    if (!this.state.gameOver) {
+      if (this.state.currentBet) {
+        const { randomCard, updatedDeck } = this.getRandomCard(this.state.deck);
+        const player = this.state.player;
+        player.cards.push(randomCard);
+        
+        if (player.count > 21) {
+          this.setState({ player, gameOver: true, message: 'BUST!' });
+        } else {
+          this.setState({ deck: updatedDeck, player });
+        }
+        console.log(player)
+      } else {
+        this.setState({ message: 'Please place bet.' });
+      }
+    } else {
+      this.setState({ message: 'Game over! Please start a new game.' });
+    }
     console.log("dealing card to player")
+    
   }
 
   endPlayerTurn = () => {
@@ -89,6 +107,8 @@ class GameController extends React.Component {
 
     return {updatedDeck: playerCard2.updatedDeck, player, dealer};
   }
+
+  
 
   startNewGame = (type) => {
     if (type === "continue") {
