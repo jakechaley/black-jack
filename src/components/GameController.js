@@ -63,13 +63,13 @@ class GameController extends React.Component {
     }, 0);
   }
 
-  // hitPlayer = (deck) => {
-  //   if (!this.state.gameOver){
-  //     const playerHitCard = this.getRandomCard(deck)
+  hitPlayer = (deck) => {
+    if (!this.state.gameOver){
+      const playerHitCard = this.getRandomCard(deck)
       
-  //   }
-  //   console.log(deck)
-  // }
+    }
+    console.log(deck)
+  }
 
   endPlayerTurn = () => {
     //todo: Stop the hand being played//
